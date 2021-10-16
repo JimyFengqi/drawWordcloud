@@ -8,13 +8,8 @@ from wordcloud import WordCloud
 
 
 def get_font():
-    os_platform = platform.platform()
-    if os_platform[0] == "W":
-        font_dir = "C:\\Windows\\Fonts"
-    else:
-        font_dir = "/usr/share/fonts"
-    print (os.path.join(font_dir,os.listdir(font_dir)[-1]))
-    return os.path.join(font_dir,os.listdir(font_dir)[-1])
+    font_dir = "C:\\Windows\\Fonts"
+    return os.path.join(font_dir, os.listdir(font_dir)[-1])
 
 
 def get_text(fn):
@@ -35,14 +30,24 @@ def generator_cloud_image(file_path, image_path):
     file_text = get_text(file_path)
     text = get_text_cn(file_text)
     mask = np.array(Image.open(image_path))
-
-    wc = WordCloud(
-        max_words=2000,
-        mask=mask,
-        max_font_size=400,
-        random_state=420,
-        margin=0,
-    ).generate(text)
+    os_platform = platform.platform()
+    if os_platform[0] == "W":
+        wc = WordCloud(
+            max_words=2000,
+            font_path=get_font(),
+            mask=mask,
+            max_font_size=400,
+            random_state=420,
+            margin=0,
+        ).generate(text)
+    else:
+        wc = WordCloud(
+            max_words=2000,
+            mask=mask,
+            max_font_size=400,
+            random_state=420,
+            margin=0,
+        ).generate(text)
     im = wc.to_image()
     # im.show()
     new_word_cloud_image = image_path.split(".")[0] + "word_cloud.jpg"
