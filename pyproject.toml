@@ -1,0 +1,36 @@
+[tool.poetry]
+    name = "词云生成器"
+    version = "1.0.0"
+    description = ""
+    authors = ["JimyFengqi <jmps515@163.com>"]
+
+[tool.poetry.dependencies]
+    python = "^3.8"
+    jieba = "^0.42.1"
+    pillow = "^8.1.0"
+    wordcloud = "^1.8.0"
+    numpy = "^1.19.0"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+  test-package = "src.test:GUI"
+
+# Miscellaneous
+[tool.isort]
+    profile = "black"
+    line_length = 120
+    multi_line_output = 3
+    include_trailing_comma = true
+
+[tool.black]
+    line-length = 120
+
+[[tool.poetry.source]]
+    name = "tsinghua"
+    url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/"
+    default = true  # 添加一个 default 参数, 使 poetry 的默认回调行为都调用到
+
+[build-system]
+    requires = ["poetry-core>=1.0.0"]
+    build-backend = "poetry.core.masonry.api"

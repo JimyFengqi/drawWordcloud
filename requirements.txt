@@ -1,0 +1,6 @@
+--index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+
+jieba==0.42.1
+numpy==1.21.1;
+pillow==8.4.0;
+wordcloud==1.8.1

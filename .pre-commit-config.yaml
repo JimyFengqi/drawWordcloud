@@ -1,0 +1,21 @@
+# .pre-commit-config.yaml
+
+repos:
+  - repo: https://gitee.com/jimmyfengqi/isort
+    rev: 5.6.4
+    hooks:
+      - id: isort
+  - repo: https://gitee.com/jimmyfengqi/black
+    rev: 20.8b0
+    hooks:
+      - id: black
+  - repo: https://gitee.com/jimmyfengqi/flake8
+    rev: 3.8.3
+    hooks:
+      - id: flake8
+  - repo: https://gitee.com/jimmyfengqi/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
