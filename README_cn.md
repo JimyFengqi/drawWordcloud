@@ -25,13 +25,13 @@
 1. 下载项目代码
 
 ```bash
-git clone https://github.com/JimyFengqi
-cd my-project
+git clone https://github.com/JimyFengqi/drawWordcloud
+cd drawWordcloud
 ```
 或者
 ```bash
-git clone https://gitee.com/jimmyfengqi
-cd my-project
+git clone https://gitee.com/jimmyfengqi/drawword-cloud
+cd drawword-cloud
 ```
 2. 进入目录安装依赖。
 ```bash

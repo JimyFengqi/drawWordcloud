@@ -22,14 +22,15 @@ English | [简体中文](./README_cn.md)
 ## Setup
 1. Download the porject
 
+
 ```bash
-git clone https://github.com/JimyFengqi
-cd my-project
+git clone https://github.com/JimyFengqi/drawWordcloud
+cd drawWordcloud
 ```
 or
 ```bash
-git clone https://gitee.com/jimmyfengqi
-cd my-project
+git clone https://gitee.com/jimmyfengqi/drawword-cloud
+cd drawword-cloud
 ```
 2. Install dependencies
 ```bash
