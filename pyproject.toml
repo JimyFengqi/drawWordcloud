@@ -16,6 +16,10 @@
 [tool.poetry.scripts]
   test-package = "src.test:GUI"
 
+# 我们所有的测试代码都放在 test 目录中
+[tool:pytest]
+testpaths=test
+
 # Miscellaneous
 [tool.isort]
     profile = "black"
