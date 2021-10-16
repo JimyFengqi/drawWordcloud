@@ -4,12 +4,11 @@ from tkinter import Button, Entry, Frame, Label, StringVar, Tk
 from tkinter.constants import E, N, S, W
 from tkinter.filedialog import askdirectory, askopenfilename
 
-from src.wordcloud_gen import generator_cloud_image, handle_picture
+from src.wordcloud_gen import generator_cloud_image, handle_picture, resize_picture
 
 imagedir = "images"
 default_original_mask = os.path.join(os.path.join(os.getcwd(), imagedir), "default_mask.png")
 default_generator_mask = os.path.join(os.path.join(os.getcwd(), imagedir), "cn.jpg")
-
 global current
 global picture_dir
 
@@ -17,11 +16,18 @@ global picture_dir
 def GUI():
     def move_to_picture_view():
         window2.grid_forget()
-        window.grid(row=2, columnspan=2)
+        window3.grid_forget()
+        window.grid(row=2, columnspan=3)
 
     def move_to_word_cloud():
         window.grid_forget()
-        window2.grid(row=2, columnspan=2)
+        window3.grid_forget()
+        window2.grid(row=2, columnspan=3)
+
+    def move_to_change_pic():
+        window.grid_forget()
+        window2.grid_forget()
+        window3.grid(row=2, columnspan=3)
 
     def select_text_file():
         """
@@ -129,6 +135,44 @@ def GUI():
             show_pic2.image = new_photo
             current = new
 
+    def select_change_image():
+        """
+        功能：选择某一特定类型的图片，返回一个由图片绝对路径组成的元祖
+
+        """
+        image_name = askopenfilename(
+            title="选择图片 ",
+            filetypes=[("图片（PNG）", "*.png"), ("图片（JPG）", "*.jpg"), ("All Files", "*")],
+        )
+        if len(image_name) != 0:
+            print("您选择的文件是：" + image_name)  # 返回的是绝对路径
+            image_change_path.set(image_name)
+
+            photo = handle_picture(image_name)
+            show_change_pic["image"] = photo
+            show_change_pic.image = photo
+        else:
+            print("您没有选择任何文件")
+            tkinter.messagebox.showinfo("提示", "您本次没有选择任何文件")
+            return ""
+
+    def change_pic():
+        if len(image_change_path.get()) == 0:
+            tkinter.messagebox.showinfo("提示", "请先选择图片文件")
+            return
+        if len(image_change_x_var.get()) == 0:
+            tkinter.messagebox.showinfo("提示", "请设置图片高度")
+            return
+        if len(image_change_y_var.get()) == 0:
+            tkinter.messagebox.showinfo("提示", "请设置图片宽度")
+            return
+        changed_pic = resize_picture(
+            image_change_path.get(), int(image_change_x_var.get()), int(image_change_y_var.get())
+        )
+        show_change_pic2["image"] = changed_pic
+        show_change_pic2.image = changed_pic
+        tkinter.messagebox.showinfo("提示", "修改图片成功")
+
     root = Tk()
     root.geometry("860x640")  # 设置窗口大小
     root.title("词云生成器和图片浏览器")  # 设置标题
@@ -146,17 +190,43 @@ def GUI():
     word_button.grid(row=1, column=0, padx=5, pady=5, sticky=N + S + W + E)
     pic_button = Button(master=root, text="浏览照片", command=move_to_word_cloud)
     pic_button.grid(row=1, column=1, padx=5, pady=5, sticky=N + S + W + E)
+    pic_change = Button(master=root, text="修剪照片", command=move_to_change_pic)
+    pic_change.grid(row=1, column=2, padx=5, pady=5, sticky=N + S + W + E)
 
-    window = Frame(
-        root,
-        bg="green",
-    )
-    window.grid(row=2, columnspan=2)
-    window2 = Frame(
-        root,
-        bg="blue",
-    )
-    window.grid(row=2, columnspan=2)
+    window = Frame(root, bg="green")
+    window.grid(row=2, columnspan=3)
+    window2 = Frame(root, bg="blue")
+    window3 = Frame(root, bg="white")
+
+    # 图片修剪器
+    image_change_path = StringVar()
+    image_change_label = Label(window3, text="目标路径:")
+    image_change_label.grid(row=0, column=0, padx=5, pady=5)
+    image_change_entry = Entry(window3, textvariable=image_change_path)
+    image_change_entry.grid(row=0, column=1, padx=5, pady=5, columnspan=8, sticky=N + S + W + E)
+    image_change_path_button = Button(window3, text="选择图片", fg="#ffffff", bg="#dd33cc", command=select_change_image)
+    image_change_path_button.grid(row=0, column=9, padx=5, pady=5, sticky=N + S + W + E)
+
+    image_change_x_label = Label(window3, text="图片高度:")
+    image_change_x_label.grid(row=1, column=0, padx=5, pady=5)
+
+    image_change_x_var = StringVar()
+    image_change_x_entry = Entry(window3, textvariable=image_change_x_var)
+    image_change_x_entry.grid(row=1, column=1, padx=5, pady=5, columnspan=5, sticky=N + S + W + E)
+
+    image_change_y_label = Label(window3, text="图片宽度:")
+    image_change_y_label.grid(row=2, column=0, padx=5, pady=5)
+    image_change_y_var = StringVar()
+    image_change_y_entry = Entry(window3, textvariable=image_change_y_var)
+    image_change_y_entry.grid(row=2, column=1, padx=5, pady=5, columnspan=5, sticky=N + S + W + E)
+
+    image_change_button = Button(window3, text="修改图片", fg="#ffffff", bg="#dd82f0", command=change_pic)
+    image_change_button.grid(row=1, column=6, columnspan=4, rowspan=2, padx=5, pady=5, sticky=N + S + W + E)
+
+    show_change_pic = Label(window3)
+    show_change_pic.grid(row=3, column=0, columnspan=5, padx=5, pady=5)
+    show_change_pic2 = Label(window3)
+    show_change_pic2.grid(row=3, column=5, columnspan=5, padx=5, pady=5)
 
     # 图片浏览器
     images_path = StringVar()
@@ -165,13 +235,7 @@ def GUI():
     images_entry = Entry(window2, textvariable=images_path)
     images_entry.grid(row=0, column=1, columnspan=8, sticky=N + S + W + E)
     images_button = Button(window2, text="选择图片文件夹", fg="#ffffff", bg="#cc82f0", command=select_images)
-    images_button.grid(
-        row=0,
-        column=9,
-        padx=5,
-        pady=5,
-        sticky=N + S + W + E,
-    )
+    images_button.grid(row=0, column=9, padx=5, pady=5, sticky=N + S + W + E)
 
     show_pic = Label(window2)
     show_pic.grid(row=1, column=0, columnspan=5, padx=5, pady=5)
@@ -192,13 +256,7 @@ def GUI():
     file_entry = Entry(window, textvariable=file_path)
     file_entry.grid(row=1, column=1, columnspan=8, sticky=N + S + W + E)
     file_button = Button(window, text="选择文件", fg="#ffffff", bg="#cc82f0", command=select_text_file)
-    file_button.grid(
-        row=1,
-        column=9,
-        padx=5,
-        pady=5,
-        sticky=N + S + W + E,
-    )
+    file_button.grid(row=1, column=9, padx=5, pady=5, sticky=N + S + W + E)
 
     image_path = StringVar()
     image_label = Label(window, text="目标路径:")
@@ -206,13 +264,7 @@ def GUI():
     image_entry = Entry(window, textvariable=image_path)
     image_entry.grid(row=2, column=1, columnspan=8, sticky=N + S + W + E)
     image_button = Button(window, text="选择图片", fg="#ffffff", bg="#cc82f0", command=select_image)
-    image_button.grid(
-        row=2,
-        column=9,
-        padx=5,
-        pady=5,
-        sticky=N + S + W + E,
-    )
+    image_button.grid(row=2, column=9, padx=5, pady=5, sticky=N + S + W + E)
 
     generator_button = Button(window, text="生成词云图", fg="#ffffff", bg="#0082f0", command=generator_image)
     generator_button.grid(row=3, padx=5, pady=5, sticky=N + S + W + E, columnspan=10)

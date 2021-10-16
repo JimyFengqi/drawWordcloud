@@ -69,3 +69,13 @@ def handle_picture(pic):
     resize_image = im.resize((w, h))
     photo = ImageTk.PhotoImage(resize_image)
     return photo
+
+
+def resize_picture(pic, change_w, change_h):
+    im = Image.open(pic)
+    w, h = im.size
+    resize_image = im.resize((int(h * change_w / w), int(w * change_h / h)))
+    new_change_pic = pic.split(".")[0] + "_change." + pic.split(".")[1]
+    resize_image.save(new_change_pic)
+    photo = ImageTk.PhotoImage(resize_image)
+    return photo
