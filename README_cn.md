@@ -62,6 +62,7 @@ test-package
 注意格式, test-package是最后生成的项目名字（自定义）
 
 后面是真正的项目启动入口
+注意项目名字错误，可能导致项目入口不能生成对应的执行文件
 ```
 [tool.poetry.scripts]
   test-package = "src.test:GUI"
