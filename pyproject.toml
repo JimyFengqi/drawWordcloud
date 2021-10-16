@@ -22,6 +22,10 @@
 [tool.pytest.ini_options]
     testpaths = ["tests"] #我们所有的测试代码都放在 test 目录中
 
+# 我们所有的测试代码都放在 test 目录中
+[tool:pytest]
+testpaths=test
+
 # Miscellaneous
 [tool.isort]
     profile = "black"

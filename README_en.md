@@ -20,9 +20,18 @@ English | [简体中文](./README.md)
 - numpy 1.19.0
 
 ## Setup
-1. Download the porject
+1. Download the project
 
-
+```bash
+git clone https://github.com/JimyFengqi
+cd my-project
+```
+or
+```bash
+git clone https://gitee.com/jimmyfengqi
+cd my-project
+```
+2. Install dependencies
 ```bash
 git clone https://github.com/JimyFengqi/drawWordcloud
 cd drawWordcloud

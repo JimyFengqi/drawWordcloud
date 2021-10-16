@@ -46,6 +46,7 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
+
 *.py,cover
 .hypothesis/
 .pytest_cache/
@@ -102,6 +103,11 @@ __pypackages__/
 # Celery stuff
 celerybeat-schedule
 celerybeat.pid
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
 
 
 # SageMath parsed files
