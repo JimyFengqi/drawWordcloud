@@ -10,15 +10,17 @@
     pillow = "^8.1.0"
     wordcloud = "^1.8.0"
     numpy = "^1.19.0"
+    six = "^1.16.0"
 
 [tool.poetry.dev-dependencies]
 
-[tool.poetry.scripts]
-  test-package = "src.test:GUI"
 
-# 我们所有的测试代码都放在 test 目录中
-[tool:pytest]
-testpaths=test
+[tool.poetry.scripts]
+    draw_gui = "src.draw_gui:GUI"
+
+# Test configurations
+[tool.pytest.ini_options]
+    testpaths = ["tests"] #我们所有的测试代码都放在 test 目录中
 
 # Miscellaneous
 [tool.isort]
@@ -32,7 +34,7 @@ testpaths=test
 
 [[tool.poetry.source]]
     name = "tsinghua"
-    url = "https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/"
+    url = "https://mirrors.aliyun.com/pypi/simple/"
     default = true  # 添加一个 default 参数, 使 poetry 的默认回调行为都调用到
 
 [build-system]

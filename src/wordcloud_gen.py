@@ -1,7 +1,19 @@
+import os
+import platform
+
 import jieba
 import numpy as np
 from PIL import Image, ImageTk
 from wordcloud import WordCloud
+
+
+def get_font():
+    os_platform = platform.platform()
+    if os_platform[0] == "W":
+        font_dir = "C:\\Windows\\Fonts"
+    else:
+        font_dir = "/usr/share/fonts"
+    return os.listdir(font_dir)[-1]
 
 
 def get_text(fn):
@@ -26,6 +38,7 @@ def generator_cloud_image(file_path, image_path):
     wc = WordCloud(
         max_words=2000,
         mask=mask,
+        font_path=get_font,
         max_font_size=400,
         random_state=420,
         margin=0,

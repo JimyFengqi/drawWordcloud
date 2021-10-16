@@ -16,20 +16,20 @@ case $1 in
     install_core_dep
     echo "Installing minimal requirements"
     poetry install --no-dev -vvv
-    source .venv/bin/activate
+    source .venv/Scripts/activate
     ;;
   "test")
     install_core_dep
     echo "Installing test requirements"
     poetry install -vvv
-    source .venv/bin/activate
+    source .venv/Scripts/activate
     ;;
   "full"|"")
     #Default to "full" if no arguments are given
     install_core_dep
     echo "Installing all requirements"
     poetry install -vvv
-    source .venv/bin/activate
+    source .venv/Scripts/activate
     #Additional packages used during development, but not needed to execute code
     echo "Installing development requirements"
     pip install -U pre-commit black==20.8b0 flake8==4.0.1 isort==5.9.3 -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple/
