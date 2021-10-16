@@ -1,5 +1,5 @@
 [tool.poetry]
-    name = "词云生成器"
+    name = "src"
     version = "1.0.0"
     description = ""
     authors = ["JimyFengqi <jmps515@163.com>"]

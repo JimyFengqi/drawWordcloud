@@ -13,7 +13,8 @@ def get_font():
         font_dir = "C:\\Windows\\Fonts"
     else:
         font_dir = "/usr/share/fonts"
-    return os.listdir(font_dir)[-1]
+    print (os.path.join(font_dir,os.listdir(font_dir)[-1]))
+    return os.path.join(font_dir,os.listdir(font_dir)[-1])
 
 
 def get_text(fn):
@@ -38,7 +39,6 @@ def generator_cloud_image(file_path, image_path):
     wc = WordCloud(
         max_words=2000,
         mask=mask,
-        font_path=get_font,
         max_font_size=400,
         random_state=420,
         margin=0,
