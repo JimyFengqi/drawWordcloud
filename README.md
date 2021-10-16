@@ -52,7 +52,8 @@ test-package
 
 效果如图：
 
-![中文文档](src/images/cn.jpg)  ![英文文档](src/images/en.jpg)
+![中文文档](images/cn.jpg)
+![英文文档](images/en.jpg)
 
 
 
